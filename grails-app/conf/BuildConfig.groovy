@@ -50,6 +50,10 @@ grails.project.dependency.resolution = {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes e.g.
         // runtime 'mysql:mysql-connector-java:5.1.27'
         // runtime 'org.postgresql:postgresql:9.3-1100-jdbc41'
+
+        // Driver for MySQL
+        compile 'mysql:mysql-connector-java:5.1.38'
+
     }
 
     plugins {
@@ -78,5 +82,9 @@ grails.project.dependency.resolution = {
         //compile ":less-asset-pipeline:1.5.3"
         //compile ":coffee-asset-pipeline:1.5.0"
         //compile ":handlebars-asset-pipeline:1.3.0.1"
+
+
+        // Grails plugin for MySQL
+        compile "org.grails.plugins:mysql-connectorj:5.1.22.1"
     }
 }
