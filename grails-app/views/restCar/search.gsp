@@ -13,7 +13,7 @@
 
 <body>
     <h1>Search</h1>
-    <g:form action="search">
+    <g:form action="searchCar">
         <label for="year">Year</label>
         <g:textField name="year" value="${params?.year}"/>
         <label for="make">Make by...</label>

@@ -9,5 +9,12 @@ class UrlMappings {
 
         "/"(view:"/index")
         "500"(view:'/error')
+
+        "/search"{
+            controller = "RestCar"
+            action = "search"
+        }
+
+        "/api"(resources: "restCar")
 	}
 }
