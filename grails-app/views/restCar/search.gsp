@@ -9,18 +9,31 @@
 <html>
 <head>
     <title>Find a car</title>
+    <meta name="layout" content="main"/>
 </head>
 
 <body>
-    <h1>Search</h1>
-    <g:form action="searchCar">
-        <label for="year">Year</label>
-        <g:textField name="year" value="${params?.year}"/>
-        <label for="make">Make by...</label>
-        <g:textField name="make" value="${params?.make}"/>
-        <label for="model">Model</label>
-        <g:textField name="model" value="${params?.model}"/>
-        <g:submitButton name="search" value="Search"/>
-    </g:form>
+    <div class="form">
+        <div class="col-md-4">
+            <h1>Search</h1>
+            <g:form action="searchCar">
+                <div class="form-group">
+                    <label for="year">Year</label>
+                    <g:textField name="year" value="${params?.year}" class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <label for="make">Make by...</label>
+                    <g:textField name="make" value="${params?.make}" class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <label for="model">Model</label>
+                    <g:textField name="model" value="${params?.model}" class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <g:submitButton name="search" value="Search" class="btn btn-default"/>
+                </div>
+            </g:form>
+        </div>
+    </div>
 </body>
 </html>

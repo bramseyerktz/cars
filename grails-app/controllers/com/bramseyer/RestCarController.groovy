@@ -4,24 +4,11 @@ class RestCarController {
 
     static responseFormats = ["xml", "json"]
 
-    //show all cars
+    def carService
+
+    //show cars
     def index() {
-        //def cars = Car.list()
-        //respond cars
-
-        def cars = Car.createCriteria()
-
-        respond cars{
-            if (params.year){
-                like("year", params.year.toInteger())
-            }
-            if (params.make){
-                and {like("make", params.make)}
-            }
-            if (params.model){
-                and {like("model", params.model)}
-            }
-        }
+        searchCar()
     }
 
     // show car by id
@@ -30,13 +17,20 @@ class RestCarController {
     }
 
     def save(Car car){
-        if (car.hasErrors()) {
+        /*if (car.hasErrors()) {
             respond car
         }
         else {
             car.save(failOnError: true)
             respond car, status: 201
+        }*/
+        def newCar = carService.addCar(car)
+        if (newCar) {
+            respond newCar, status: 201
+        } else {
+            respond status: 404
         }
+
     }
 
     def update(Integer id, Car car){
