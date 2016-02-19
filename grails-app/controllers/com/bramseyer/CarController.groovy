@@ -8,12 +8,11 @@ import grails.transaction.Transactional
 
 @Transactional(readOnly = true)
 class CarController {
-
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond Car.list(params), model:[carInstanceCount: Car.count()]
+        respond Car.list(params), model: [carInstanceCount: Car.count()]
     }
 
     def show(Car carInstance) {
@@ -32,11 +31,11 @@ class CarController {
         }
 
         if (carInstance.hasErrors()) {
-            respond carInstance.errors, view:'create'
+            respond carInstance.errors, view: 'create'
             return
         }
 
-        carInstance.save flush:true
+        carInstance.save flush: true
 
         request.withFormat {
             form multipartForm {
@@ -59,18 +58,18 @@ class CarController {
         }
 
         if (carInstance.hasErrors()) {
-            respond carInstance.errors, view:'edit'
+            respond carInstance.errors, view: 'edit'
             return
         }
 
-        carInstance.save flush:true
+        carInstance.save flush: true
 
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'Car.label', default: 'Car'), carInstance.id])
                 redirect carInstance
             }
-            '*'{ respond carInstance, [status: OK] }
+            '*' { respond carInstance, [status: OK] }
         }
     }
 
@@ -82,14 +81,14 @@ class CarController {
             return
         }
 
-        carInstance.delete flush:true
+        carInstance.delete flush: true
 
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.deleted.message', args: [message(code: 'Car.label', default: 'Car'), carInstance.id])
-                redirect action:"index", method:"GET"
+                redirect action: "index", method: "GET"
             }
-            '*'{ render status: NO_CONTENT }
+            '*' { render status: NO_CONTENT }
         }
     }
 
@@ -99,7 +98,8 @@ class CarController {
                 flash.message = message(code: 'default.not.found.message', args: [message(code: 'carInstance.label', default: 'Car'), params.id])
                 redirect action: "index", method: "GET"
             }
-            '*'{ render status: NOT_FOUND }
+            '*' { render status: NOT_FOUND }
         }
     }
+
 }

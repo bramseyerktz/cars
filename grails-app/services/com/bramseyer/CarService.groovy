@@ -20,5 +20,21 @@ class CarService {
             return car
         }
     }
+
+    def searchCar(params){
+        def cars = Car.createCriteria()
+
+        return cars{
+            if (params.year){
+                like("year", params.year.toInteger())
+            }
+            if (params.make){
+                and {like("make", params.make)}
+            }
+            if (params.model){
+                and {like("model", params.model)}
+            }
+        }
+    }
 }
 

@@ -8,7 +8,7 @@ class RestCarController {
 
     //show cars
     def index() {
-        searchCar()
+        respond carService.searchCar(params)
     }
 
     // show car by id
@@ -58,26 +58,7 @@ class RestCarController {
 
     //searcher for cars
     def search(){
-
+        [carsList: carService.searchCar(params)]
     }
 
-    def searchCar() {
-        def cars = Car.createCriteria()
-
-        respond cars{
-            if (params.year){
-                like("year", params.year.toInteger())
-            }
-            if (params.make){
-                and {like("make", params.make)}
-            }
-            if (params.model){
-                and {like("model", params.model)}
-            }
-        }
-        /*def cars = Car.findAll("from Car c where c.year = ${params.year}" +
-                " and c.make = '${params.make}'"  +
-                " and c.model = '${params.model}'")*/
-        //respond cars
-    }
 }

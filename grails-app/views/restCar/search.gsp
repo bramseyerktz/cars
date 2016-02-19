@@ -13,10 +13,10 @@
 </head>
 
 <body>
-    <div class="form">
-        <div class="col-md-4">
+    <div class="form-inline">
+        <div class="col-md-offset-1 col-md-11">
             <h1>Search</h1>
-            <g:form action="searchCar">
+            <g:form action="search">
                 <div class="form-group">
                     <label for="year">Year</label>
                     <g:textField name="year" value="${params?.year}" class="form-control"/>
@@ -34,6 +34,28 @@
                 </div>
             </g:form>
         </div>
-    </div>
+
+        <div class="col-md-offset-1 col-md-10">
+            <h1>Result</h1>
+        </div>
+
+        <div class="row">
+            <div class="col-md-offset-1 col-md-10">
+                <table class="table">
+                    <tr>
+                        <th>Make</th>
+                        <th>Model</th>
+                        <th>Year</th>
+                    </tr>
+                    <g:each in="${carsList}" var="car">
+                        <tr>
+                            <td class="success">${car.year}</td>
+                            <td class="success">${car.make}</td>
+                            <td class="success">${car.model}</td>
+                        </tr>
+                    </g:each>
+                </table>
+            </div>
+        </div>
 </body>
 </html>
