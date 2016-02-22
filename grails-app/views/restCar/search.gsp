@@ -16,7 +16,7 @@
     <div class="form-inline">
         <div class="col-md-offset-1 col-md-11">
             <h1>Search</h1>
-            <g:form action="search">
+            <g:form> <!--action="search">-->
                 <div class="form-group">
                     <label for="year">Year</label>
                     <g:textField name="year" value="${params?.year}" class="form-control"/>
@@ -30,32 +30,40 @@
                     <g:textField name="model" value="${params?.model}" class="form-control"/>
                 </div>
                 <div class="form-group">
-                    <g:submitButton name="search" value="Search" class="btn btn-default"/>
+                    <g:submitToRemote value="SearchJQuery"
+                                      url="[controller: 'restCar', action: 'searchAjax']"
+                                      update="allCars" class="btn btn-default"/>
+                    <!--<g:submitButton name="search" value="Search" class="btn btn-default"/>-->
                 </div>
             </g:form>
         </div>
+    </div>
 
+    <div class="col-md-offset-1 col-md-10">
+        <h1>Result</h1>
+    </div>
+
+
+    <div class="row">
         <div class="col-md-offset-1 col-md-10">
-            <h1>Result</h1>
-        </div>
-
-        <div class="row">
-            <div class="col-md-offset-1 col-md-10">
-                <table class="table">
+            <table class="table">
+                <tr>
+                    <th>Make</th>
+                    <th>Model</th>
+                    <th>Year</th>
+                </tr>
+                <!--<g:each in="${carsList}" var="car">
                     <tr>
-                        <th>Make</th>
-                        <th>Model</th>
-                        <th>Year</th>
+                        <td class="success">${car.year}</td>
+                        <td class="success">${car.make}</td>
+                        <td class="success">${car.model}</td>
                     </tr>
-                    <g:each in="${carsList}" var="car">
-                        <tr>
-                            <td class="success">${car.year}</td>
-                            <td class="success">${car.make}</td>
-                            <td class="success">${car.model}</td>
-                        </tr>
-                    </g:each>
-                </table>
-            </div>
+                </g:each>-->
+                <tbody id="allCars">
+                    <g:render template="findingCars" collection="${carsList}" var="car"/>
+                </tbody>
+            </table>
         </div>
+    </div>
 </body>
 </html>

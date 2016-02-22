@@ -61,4 +61,9 @@ class RestCarController {
         [carsList: carService.searchCar(params)]
     }
 
+    def searchAjax(){
+        def carsList = carService.searchCar(params)
+        render template: 'findingCars', collection: carsList, var: 'car'
+    }
+
 }
