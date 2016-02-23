@@ -54,6 +54,9 @@ grails.project.dependency.resolution = {
         // Driver for MySQL
         compile 'mysql:mysql-connector-java:5.1.38'
 
+        //Add wslite for REST services
+        compile "com.github.groovy-wslite:groovy-wslite:0.7.2"
+
     }
 
     plugins {

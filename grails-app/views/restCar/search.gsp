@@ -50,15 +50,16 @@
         <div class="col-md-offset-1 col-md-10">
             <table class="table" id="tableCars">
                 <tr>
+                    <th>Id</th>
                     <th>Make</th>
                     <th>Model</th>
                     <th>Year</th>
                 </tr>
                 <!--<g:each in="${carsList}" var="car">
                     <tr>
-                        <td class="success">${car.year}</td>
                         <td class="success">${car.make}</td>
                         <td class="success">${car.model}</td>
+                        <td class="success">${car.year}</td>
                     </tr>
                 </g:each>-->
                 <tbody id="allCars">
@@ -69,33 +70,45 @@
     </div>
 
     <!-- FORM FOR EDIT CAR-->
-    <div id="frmEditCar" title="Edit car">
-        <form>
+    <div id="frmEditCar" title="Edit car" class="form">
+        <g:form name="formEdit">
             <fieldset>
                 <div class="form-group">
-                    <label for="make">Make</label>
+                    <label for="idPopup">Id</label>
+                    <input type="text" name="idPopup" id="idPopup" readonly="readonly" style="background-color:lightgrey;">
+                </div>
+                <div class="form-group">
+                    <label for="makePopup">Make</label>
                     <input type="text" name="makePopup" id="makePopup">
                 </div>
                 <div class="form-group">
-                    <label for="model">Model</label>
+                    <label for="modelPopup">Model</label>
                     <input type="text" name="modelPopup" id="modelPopup">
                 </div>
                 <div class="form-group">
-                    <label for="year">Year</label>
+                    <label for="yearPopup">Year</label>
                     <input type="text" name="yearPopup" id="yearPopup">
                 </div>
                 <!-- Edit car properties -->
-                <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+                <!--<input type="submit" tabindex="-1" style="position:absolute; top:-1000px">-->
+                <div style="display:none">
+                    <g:submitToRemote value="Update" id="updateCar"
+                                        url="[controller: 'restCar', action: 'updateCar']"
+                                        update="allCars" class="btn btn-default"
+                                        onLoading="addRowHandlers()"
+                                        onSuccess="addRowHandlers()"/>
+                </div>
             </fieldset>
-        </form>
+        </g:form>
     </div>
 
     <script>
         var dialog,
                 form,
-                make,
-                model,
-                year;
+                id = $("#idPopup")
+                make = $("#makePopup"),
+                model = $("#modelPopup"),
+                year = $("#yearPopup");
 
         dialog = $("#frmEditCar").dialog({
             autoOpen: false,
@@ -103,7 +116,7 @@
             width: 350,
             modal: true,
             buttons: {
-                //"Update": updateCar,
+                "Update": updateCar,
                 Cancel: function () {
                     dialog.dialog("close");
                 }
@@ -115,8 +128,21 @@
 
         form = dialog.find("form").on("submit", function (event) {
             event.preventDefault();
-            //updateCar();
+            updateCar();
         });
+
+        function updateCar(){
+            if (make.val() != ""
+                && model.val() != ""
+                && year.val() != "") {
+                //alert("hasta acá bien");
+//                VER COMO VALIDAR LOS DATOS que se envían
+                $("#updateCar").click();
+                dialog.dialog("close");
+                return false;
+            }
+
+        }
 
         function addRowHandlers() {
             var table = document.getElementById("tableCars");
@@ -128,13 +154,14 @@
                         {
                             return function() {
                                 var id = [];
-                                for (j=0; j < 3; j++) {
+                                for (j=0; j < 4; j++) {
                                     var cell = row.getElementsByTagName("td")[j];
                                     id[j] = cell.innerHTML;
                                 };
-                                document.getElementById("makePopup").setAttribute("value",id[0]);
-                                document.getElementById("modelPopup").setAttribute("value",id[1]);
-                                document.getElementById("yearPopup").setAttribute("value",id[2]);
+                                document.getElementById("idPopup").setAttribute("value",id[0])
+                                document.getElementById("makePopup").setAttribute("value",id[1]);
+                                document.getElementById("modelPopup").setAttribute("value",id[2]);
+                                document.getElementById("yearPopup").setAttribute("value",id[3]);
                                 dialog.dialog("open");
                             };
                         };
