@@ -11,7 +11,7 @@ class UrlMappings {
         "500"(view:'/error')
 
         "/search"{
-            controller = "RestCar"
+            controller = "CarCrud"
             action = "search"
         }
 
