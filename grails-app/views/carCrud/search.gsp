@@ -19,23 +19,28 @@
         <g:form> <!--action="search">-->
             <div class="form-group">
                 <label for="year">Year</label>
-                <g:textField name="year" value="${params?.year}" class="form-control"/>
+                <input id="year" type="number" min="0" max="9999" name="year" class="form-control" placeholder="Year" value="${params?.year}"/>
             </div>
             <div class="form-group">
                 <label for="make">Make by...</label>
-                <g:textField name="make" value="${params?.make}" class="form-control"/>
+                <!--<g:textField name="make" value="${params?.make}" class="form-control"/>-->
+                <input type="text" id="make" maxlength="50" name="make" class="form-control" placeholder="Make" value="${params?.make}"/>
             </div>
             <div class="form-group">
                 <label for="model">Model</label>
-                <g:textField name="model" value="${params?.model}" class="form-control"/>
+                <!--<g:textField name="model" value="${params?.model}" class="form-control"/>-->
+                <input type="text" id="model" maxlength="50" name="model" class="form-control" placeholder="Model" value="${params?.model}"/>
             </div>
             <div class="form-group">
-                <g:submitToRemote value="SearchJQuery"
+                <g:submitToRemote value="Search"
                                   url="[controller: 'carCrud', action: 'searchAjax']"
                                   update="allCars" class="btn btn-default"
                                   onLoading="addRowHandlers()"
                                   onSuccess="addRowHandlers()"/>
-                <!--<g:submitButton name="search" value="Search" class="btn btn-default"/>-->
+                <div id="new" class="btn btn-default">
+                    New
+                </div>
+                <!--<button name="new" id="new" class="btn btn-default">New</button>-->
             </div>
         </g:form>
     </div>
@@ -75,22 +80,21 @@
         <fieldset>
             <div class="form-group">
                 <label for="idPopup">Id</label>
-                <input type="text" name="idPopup" id="idPopup" readonly="readonly" style="background-color:lightgrey;">
+                <input type="text" name="idPopup" id="idPopup" class="form-control" readonly="readonly" style="background-color:lightgrey;">
             </div>
             <div class="form-group">
                 <label for="makePopup">Make</label>
-                <input type="text" name="makePopup" id="makePopup">
+                <input type="text" name="makePopup" maxlength="50" class="form-control" id="makePopup" placeholder="Make">
             </div>
             <div class="form-group">
                 <label for="modelPopup">Model</label>
-                <input type="text" name="modelPopup" id="modelPopup">
+                <input type="text" maxlength="50" class="form-control" name="modelPopup" id="modelPopup" placeholder="Model">
             </div>
             <div class="form-group">
                 <label for="yearPopup">Year</label>
-                <input type="text" name="yearPopup" id="yearPopup">
+                <input type="number" min="0" max="9999" class="form-control" name="yearPopup" id="yearPopup" placeholder="Year">
             </div>
             <!-- Edit car properties -->
-            <!--<input type="submit" tabindex="-1" style="position:absolute; top:-1000px">-->
             <div style="display:none">
                 <g:submitToRemote value="Update" id="updateCar"
                                   url="[controller: 'carCrud', action: 'updateCar']"
@@ -99,6 +103,11 @@
                                   onSuccess="addRowHandlers()"/>
                 <g:submitToRemote value="Delete" id="deleteCar"
                                   url="[controller: 'carCrud', action: 'deleteCar']"
+                                  update="allCars" class="btn btn-default"
+                                  onLoading="addRowHandlers()"
+                                  onSuccess="addRowHandlers()"/>
+                <g:submitToRemote value="New" id="newCar"
+                                  url="[controller: 'carCrud', action: 'newCar']"
                                   update="allCars" class="btn btn-default"
                                   onLoading="addRowHandlers()"
                                   onSuccess="addRowHandlers()"/>
@@ -111,7 +120,7 @@
     var dialog,
             form,
             id = $("#idPopup")
-    make = $("#makePopup"),
+            make = $("#makePopup"),
             model = $("#modelPopup"),
             year = $("#yearPopup");
 
@@ -120,13 +129,6 @@
         height: 430,
         width: 300,
         modal: true,
-        buttons: {
-            "Update": updateCar,
-            "Delete": deleteCar,
-            Cancel: function () {
-                dialog.dialog("close");
-            }
-        },
         close: function () {
             form[0].reset();
         }
@@ -174,6 +176,19 @@
                             document.getElementById("makePopup").setAttribute("value",id[1]);
                             document.getElementById("modelPopup").setAttribute("value",id[2]);
                             document.getElementById("yearPopup").setAttribute("value",id[3]);
+                            dialog.dialog("option", "buttons", [
+                                {text: "Update",
+                                click: updateCar
+                                },
+                                {text: "Delete",
+                                 click: deleteCar
+                                },
+                                {text: "Cancel",
+                                 click: function() {
+                                        dialog.dialog( "close" );
+                                    }
+                                }
+                            ]);
                             dialog.dialog("open");
                         };
                     };
@@ -182,6 +197,36 @@
         }}
 
     window.onload = addRowHandlers();
+
+    $("#new").click(function(){
+        document.getElementById("idPopup").setAttribute("value","");
+        document.getElementById("makePopup").setAttribute("value","");
+        document.getElementById("modelPopup").setAttribute("value","");
+        document.getElementById("yearPopup").setAttribute("value","");
+        dialog.dialog("option", "buttons", [{
+                text: "Save",
+                click: saveCar
+            },
+            {   text: "Cancel",
+                click: function() {
+                    dialog.dialog( "close" );
+                }
+            }
+            ]);
+        dialog.dialog("open");
+    });
+
+    function saveCar(){
+        if (make.val() != ""
+                && model.val() != ""
+                && year.val() != "") {
+            //alert("hasta acá bien");
+//                VER COMO VALIDAR LOS DATOS que se envían
+            $("#newCar").click();
+            dialog.dialog("close");
+            return false;
+        }
+    }
 
 </script>
 </body>

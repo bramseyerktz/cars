@@ -41,4 +41,11 @@ class CarCrudController {
 
         searchAjax()
     }
+
+    def newCar() {
+        def response = restClient.post (){
+            charset "UTF-8"
+            urlenc make: params.makePopup, model: params.modelPopup, year: params.yearPopup
+        }
+    }
 }
