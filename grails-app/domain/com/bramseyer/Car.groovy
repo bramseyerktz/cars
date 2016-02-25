@@ -5,10 +5,13 @@ class Car {
     Integer year
     String make
     String model
+    String plate
+    //Owner owner
+
+    static belongsTo = [owner: Owner]
 
     static mapping = {
         table('VehicleModelYear')
-        //id column: 'id'
         year column: 'year'
         make column: 'make'
         model column: 'model'
@@ -18,5 +21,7 @@ class Car {
         year(blank:false, max: 3000)
         make(blank:false, maxSize: 50)
         model(blank:false, maxSize: 50)
+        plate(nullable: true)
+        //owner(nullable: true)
     }
 }

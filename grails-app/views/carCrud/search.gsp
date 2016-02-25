@@ -10,6 +10,7 @@
 <head>
     <title>Find a car</title>
     <meta name="layout" content="main"/>
+    <g:javascript library="search"/>
 </head>
 
 <body>
@@ -116,118 +117,5 @@
     </g:form>
 </div>
 
-<script>
-    var dialog,
-            form,
-            id = $("#idPopup")
-            make = $("#makePopup"),
-            model = $("#modelPopup"),
-            year = $("#yearPopup");
-
-    dialog = $("#frmEditCar").dialog({
-        autoOpen: false,
-        height: 430,
-        width: 300,
-        modal: true,
-        close: function () {
-            form[0].reset();
-        }
-    });
-
-    form = dialog.find("form").on("submit", function (event) {
-        event.preventDefault();
-        updateCar();
-    });
-
-    function deleteCar(){
-        $("#deleteCar").click();
-        dialog.dialog("close");
-        return false;
-    }
-
-    function updateCar(){
-        if (make.val() != ""
-                && model.val() != ""
-                && year.val() != "") {
-            //alert("hasta acá bien");
-//                VER COMO VALIDAR LOS DATOS que se envían
-            $("#updateCar").click();
-            dialog.dialog("close");
-            return false;
-        }
-
-    }
-
-    function addRowHandlers() {
-        var table = document.getElementById("tableCars");
-        var rows = table.getElementsByTagName("tr");
-        for (i = 0; i < rows.length; i++) {
-            var currentRow = table.rows[i];
-            var createClickHandler =
-                    function(row)
-                    {
-                        return function() {
-                            var id = [];
-                            for (j=0; j < 4; j++) {
-                                var cell = row.getElementsByTagName("td")[j];
-                                id[j] = cell.innerHTML;
-                            };
-                            document.getElementById("idPopup").setAttribute("value",id[0])
-                            document.getElementById("makePopup").setAttribute("value",id[1]);
-                            document.getElementById("modelPopup").setAttribute("value",id[2]);
-                            document.getElementById("yearPopup").setAttribute("value",id[3]);
-                            dialog.dialog("option", "buttons", [
-                                {text: "Update",
-                                click: updateCar
-                                },
-                                {text: "Delete",
-                                 click: deleteCar
-                                },
-                                {text: "Cancel",
-                                 click: function() {
-                                        dialog.dialog( "close" );
-                                    }
-                                }
-                            ]);
-                            dialog.dialog("open");
-                        };
-                    };
-
-            currentRow.onclick = createClickHandler(currentRow);
-        }}
-
-    window.onload = addRowHandlers();
-
-    $("#new").click(function(){
-        document.getElementById("idPopup").setAttribute("value","");
-        document.getElementById("makePopup").setAttribute("value","");
-        document.getElementById("modelPopup").setAttribute("value","");
-        document.getElementById("yearPopup").setAttribute("value","");
-        dialog.dialog("option", "buttons", [{
-                text: "Save",
-                click: saveCar
-            },
-            {   text: "Cancel",
-                click: function() {
-                    dialog.dialog( "close" );
-                }
-            }
-            ]);
-        dialog.dialog("open");
-    });
-
-    function saveCar(){
-        if (make.val() != ""
-                && model.val() != ""
-                && year.val() != "") {
-            //alert("hasta acá bien");
-//                VER COMO VALIDAR LOS DATOS que se envían
-            $("#newCar").click();
-            dialog.dialog("close");
-            return false;
-        }
-    }
-
-</script>
 </body>
 </html>

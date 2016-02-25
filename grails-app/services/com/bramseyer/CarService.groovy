@@ -29,10 +29,10 @@ class CarService {
                 like("year", params.year.toInteger())
             }
             if (params.make){
-                and {like("make", params.make)}
+                and {like("make", params.make+'%')}
             }
             if (params.model){
-                and {like("model", params.model)}
+                and {like("model", params.model+'%')}
             }
         }
     }
