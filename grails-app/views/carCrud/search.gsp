@@ -15,36 +15,41 @@
 
 <body>
 <div class="form-inline">
-    <div class="col-md-offset-1 col-md-11">
-        <h1>Search</h1>
-        <g:form> <!--action="search">-->
-            <div class="form-group">
-                <label for="year">Year</label>
-                <input id="year" type="number" min="0" max="9999" name="year" class="form-control" placeholder="Year" value="${params?.year}"/>
-            </div>
-            <div class="form-group">
-                <label for="make">Make by...</label>
-                <!--<g:textField name="make" value="${params?.make}" class="form-control"/>-->
-                <input type="text" id="make" maxlength="50" name="make" class="form-control" placeholder="Make" value="${params?.make}"/>
-            </div>
-            <div class="form-group">
-                <label for="model">Model</label>
-                <!--<g:textField name="model" value="${params?.model}" class="form-control"/>-->
-                <input type="text" id="model" maxlength="50" name="model" class="form-control" placeholder="Model" value="${params?.model}"/>
-            </div>
-            <div class="form-group">
-                <g:submitToRemote value="Search"
-                                  url="[controller: 'carCrud', action: 'searchAjax']"
-                                  update="allCars" class="btn btn-default"
-                                  onLoading="addRowHandlers()"
-                                  onSuccess="addRowHandlers()"/>
-                <div id="new" class="btn btn-default">
-                    New
+    <form>
+        <div class="col-md-offset-1 col-md-10">
+            <h1>Search</h1><br>
+                <div class="form-group">
+                    <label for="year">Year</label>
+                    <input id="year" type="number" min="0" max="9999" name="year" class="form-control" placeholder="Year" value="${params?.year}"/>
                 </div>
-                <!--<button name="new" id="new" class="btn btn-default">New</button>-->
-            </div>
-        </g:form>
-    </div>
+                <div class="form-group">
+                    <label for="make">Make by...</label>
+                    <input type="text" id="make" maxlength="50" name="make" class="form-control" placeholder="Make" value="${params?.make}"/>
+                </div>
+                <div class="form-group">
+                    <label for="model">Model</label>
+                    <input type="text" id="model" maxlength="50" name="model" class="form-control" placeholder="Model" value="${params?.model}"/>
+                </div><br><br>
+                <div class="form-group">
+                    <label for="plate">Plate</label>
+                    <input type="text" id="plate" maxlength="6" name="plate" class="form-control" placeholder="Plate" value="${params?.plate}"/>
+                </div>
+                <div class="form-group">
+                    <g:submitToRemote value="Search"
+                                      url="[controller: 'carCrud', action: 'searchAjax']"
+                                      update="allCars" class="btn btn-default"
+                                      onLoading="addRowHandlers()"
+                                      onSuccess="addRowHandlers()"/>
+                    <div id="new" class="btn btn-default">
+                        New Car
+                    </div>
+                    <div id="newOwner" class="btn btn-default">
+                        New Owner
+                    </div>
+                    <!--<button name="new" id="new" class="btn btn-default">New</button>-->
+                </div><br><br>
+        </div>
+    </form>
 </div>
 
 <div class="col-md-offset-1 col-md-10">
@@ -60,6 +65,8 @@
                 <th>Make</th>
                 <th>Model</th>
                 <th>Year</th>
+                <th>Plate</th>
+                <th>Owner's Name</th>
             </tr>
             <!--<g:each in="${carsList}" var="car">
                 <tr>
@@ -76,7 +83,7 @@
 </div>
 
 <!-- FORM FOR EDIT CAR-->
-<div id="frmEditCar" title="Edit car" class="form">
+<div id="frmEditCar" title="Car" class="form">
     <g:form name="formEdit">
         <fieldset>
             <div class="form-group">
@@ -95,6 +102,10 @@
                 <label for="yearPopup">Year</label>
                 <input type="number" min="0" max="9999" class="form-control" name="yearPopup" id="yearPopup" placeholder="Year">
             </div>
+            <div class="form-group">
+                <label for="platePopup">Plate</label>
+                <input type="text" maxlength="6" class="form-control" name="platePopup" id="platePopup" placeholder="Plate">
+            </div>
             <!-- Edit car properties -->
             <div style="display:none">
                 <g:submitToRemote value="Update" id="updateCar"
@@ -112,6 +123,39 @@
                                   update="allCars" class="btn btn-default"
                                   onLoading="addRowHandlers()"
                                   onSuccess="addRowHandlers()"/>
+            </div>
+        </fieldset>
+    </g:form>
+</div>
+
+
+<!-- FORM FOR NEW OWNER-->
+<div id="frmNewOwner" title="New Owner" class="form">
+    <g:form name="formEdit">
+        <fieldset>
+            <div class="form-group">
+                <label for="dniPopup">DNI</label>
+                <input type="number" name="dniPopup" maxlength="8" class="form-control" id="dniPopup" placeholder="DNI">
+            </div>
+            <div class="form-group">
+                <label for="namePopup">Name</label>
+                <input type="text" maxlength="25" class="form-control" name="namePopup" id="namePopup" placeholder="Name">
+            </div>
+            <div class="form-group">
+                <label for="lastNamePopup">Last Name</label>
+                <input type="text" maxlength="25" class="form-control" name="lastNamePopup" id="lastNamePopup" placeholder="Last Name">
+            </div>
+            <div class="form-group">
+                <label for="nationalityPopup">Nationality</label>
+                <input type="text" maxlength="20" class="form-control" name="nationalityPopup" id="nationalityPopup" placeholder="Nationality">
+            </div>
+            <!-- New owner properties -->
+            <div style="display:none">
+                <!--<g:submitToRemote value="New" id="newOwner"
+                                  url="[controller: 'carCrud', action: 'newCar']"
+                                  update="allCars" class="btn btn-default"
+                                  onLoading="addRowHandlers()"
+                                  onSuccess="addRowHandlers()"/>HACERLO CON AJAX COMO LO HACE MARCOS; COPIARLE-->
             </div>
         </fieldset>
     </g:form>

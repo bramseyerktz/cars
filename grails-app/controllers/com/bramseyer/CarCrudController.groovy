@@ -1,5 +1,6 @@
 package com.bramseyer
 
+import grails.converters.JSON
 import wslite.rest.ContentType
 import wslite.rest.RESTClient
 
@@ -12,11 +13,11 @@ class CarCrudController {
 
     //searcher for cars
     def search(){
-        [carsList: carService.searchCar(params)]
+        //[carsList: carService.searchCar(params)]
     }
 
     def searchAjax(){
-        def response = restClient.get(path: "/", accept: ContentType.JSON, query: [make: params.make, model: params.model, year: params.year])
+        def response = restClient.get(path: "/", accept: ContentType.JSON, query: [make: params.make, model: params.model, year: params.year, plate: params.plate])
         def carsList = response.json
         render template: 'findingCars', collection: carsList, var: 'car'
     }
@@ -27,7 +28,7 @@ class CarCrudController {
 
         def response = restClient.post() {
             charset "UTF-8"
-            urlenc id: params.idPopup, make: params.makePopup, model: params.modelPopup, year: params.yearPopup
+            urlenc id: params.idPopup, make: params.makePopup, model: params.modelPopup, year: params.yearPopup, plate: params.platePopup
         }
 
         searchAjax()
@@ -45,7 +46,7 @@ class CarCrudController {
     def newCar() {
         def response = restClient.post (){
             charset "UTF-8"
-            urlenc make: params.makePopup, model: params.modelPopup, year: params.yearPopup
+            urlenc make: params.makePopup, model: params.modelPopup, year: params.yearPopup, plate: params.platePopup
         }
     }
 }

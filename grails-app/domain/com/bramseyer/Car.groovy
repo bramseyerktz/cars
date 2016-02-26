@@ -21,7 +21,7 @@ class Car {
         year(blank:false, max: 3000)
         make(blank:false, maxSize: 50)
         model(blank:false, maxSize: 50)
-        plate(nullable: true)
-        //owner(nullable: true)
+        plate(blank: false, maxSize: 6, matches: '[A-Z]{3}[0-9]{3}')
+        //plate(nullable: true)
     }
 }

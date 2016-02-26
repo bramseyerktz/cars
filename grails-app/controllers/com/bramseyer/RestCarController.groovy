@@ -1,33 +1,29 @@
 package com.bramseyer
 
-//import wslite.rest.ContentType
-//import wslite.rest.RESTClient
+import grails.converters.JSON
+
 
 class RestCarController {
 
     static responseFormats = ["xml", "json"]
 
     def carService
-    //def restClient = new RESTClient("http://localhost:8080/cars/api")
 
     //show cars
     def index() {
-        respond carService.searchCar(params)
+        JSON.use('ownerByCar') {
+            respond carService.searchCar(params)
+        }
     }
 
     // show car by id
     def show(Integer id) {
-        respond Car.findById(id)
+        JSON.use('ownerByCar') {
+            respond Car.findById(id)
+        }
     }
 
     def save(Car car){
-        /*if (car.hasErrors()) {
-            respond car
-        }
-        else {
-            car.save(failOnError: true)
-            respond car, status: 201
-        }*/
         def newCar = carService.addCar(car)
         if (newCar) {
             respond newCar, status: 201

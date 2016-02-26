@@ -16,5 +16,7 @@ class UrlMappings {
         }
 
         "/api"(resources: "restCar")
+
+        "/apiOwner"(resources: "restOwner")
 	}
 }

@@ -34,6 +34,9 @@ class CarService {
             if (params.model){
                 and {like("model", params.model+'%')}
             }
+            if (params.plate){
+                and {like("plate", params.plate+'%')}
+            }
         }
     }
 }

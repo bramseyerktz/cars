@@ -9,5 +9,9 @@ class Owner {
     static hasMany = [cars: Car]
 
     static constraints = {
+        dni(blank:false, maxSize: 8)
+        nombre(blank: false, maxSize:25)
+        apellido(blank: false, maxSize: 25)
+        nacionalidad(blank: false, maxSize: 20)
     }
 }
