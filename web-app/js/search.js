@@ -10,7 +10,8 @@
         make = $("#makePopup"),
         model = $("#modelPopup"),
         year = $("#yearPopup"),
-        plate = $("#platePopup");
+        plate = $("#platePopup")
+        owner = $("#idOwnerPopup");
 
     dialogCar = $("#frmEditCar").dialog({
         autoOpen: false,
@@ -95,7 +96,7 @@
                 {
                     return function() {
                         var id = [];
-                        for (j=0; j < 5; j++) {
+                        for (j=0; j < 6; j++) {
                             var cell = row.getElementsByTagName("td")[j];
                             id[j] = cell.innerHTML;
                         };
@@ -104,6 +105,7 @@
                         document.getElementById("modelPopup").setAttribute("value",id[2]);
                         document.getElementById("yearPopup").setAttribute("value",id[3]);
                         document.getElementById("platePopup").setAttribute("value",id[4]);
+                        document.getElementById("idOwnerPopup").setAttribute("value",id[5]);
                         dialogCar.dialog("option", "buttons", [
                             {text: "Update",
                                 click: updateCar
@@ -130,14 +132,7 @@
         document.getElementById("modelPopup").setAttribute("value","");
         document.getElementById("yearPopup").setAttribute("value","");
         document.getElementById("platePopup").setAttribute("value","");
-        dialogCar.dialog("option", "buttons", [{
-            text: "Save",
-            click: saveCar
-        },
-            {   text: "Cancel",
-                click: cancel
-            }
-        ]);
+        document.getElementById("idOwnerPopup").setAttribute("value","");
         dialogCar.dialog("open");
     });
 
@@ -146,8 +141,37 @@
         document.getElementById("lastNamePopup").setAttribute("value","");
         document.getElementById("dniPopup").setAttribute("value","");
         document.getElementById("nationalityPopup").setAttribute("value","");
+        dialogOwner.dialog("option", "buttons", [{
+            text: "Save Owner",
+            click: addOwner
+        },
+        {   text: "Cancel",
+            click: cancel
+        }
+        ]);
         dialogOwner.dialog("open");
     });
+
+    $("#btnOpenFormOwner").click(function(){
+        var divSearch;
+        divSearch = document.getElementById("divSearchOwner");
+        //if (divSearch.style.visibility == "hidden"){
+        //    divSearch.style.visibility = "visible";
+        //} else {
+        //    divSearch.style.visibility = "hidden";
+        //}
+        if (divSearch.style.display == "none"){
+            divSearch.style.display = "block";
+        } else {
+            divSearch.style.display = "none";
+        }
+    });
+
+    $("#btnSearchOwner").click(function(){
+        $("#searchOwner").click();
+    });
+
+
 
     function saveCar(){
         if (checkParamsCar()) {
@@ -156,7 +180,6 @@
             return false;
         }
     }
-
 
     function checkParamsCar(){
         if (year.val() == ""

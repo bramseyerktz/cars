@@ -66,7 +66,7 @@
                 <th>Model</th>
                 <th>Year</th>
                 <th>Plate</th>
-                <th>Owner's Name</th>
+                <th>Owner</th>
             </tr>
             <!--<g:each in="${carsList}" var="car">
                 <tr>
@@ -106,8 +106,31 @@
                 <label for="platePopup">Plate</label>
                 <input type="text" maxlength="6" class="form-control" name="platePopup" id="platePopup" placeholder="Plate">
             </div>
+            <div class="form-group">
+                <label for="idOwnerPopup">Owner</label>
+                <input type="text" maxlength="25" class="form-control" name="idOwnerPopup" id="idOwnerPopup" placeholder="Owner" readonly="readonly" style="background-color:lightgrey;">
+                <input type="button" value="..." id="btnOpenFormOwner" class="btn btn-default">
+            </div>
             <!-- Edit car properties -->
-            <div style="display:none">
+
+            <!-- div for search owners -->
+            <div id="divSearchOwner" style="display:none;"> <!--style="visibility: hidden;">-->
+                <g:form name="formSearchOwner">
+                    <div class="form-group">
+                        <label for="nameSearchOwner">Name</label>
+                        <input type="text" maxlength="25" class="form-control" name="nameSearchOwner" id="nameSearchOwner" placeholder="Owner's name">
+                        <input type="button" value="Search" id="btnSearchOwner" class="btn btn-default">
+                        <table class="table" id="tableOwners">
+                            <tbody id="allOwners">
+                               <g:render template="findingOwners" collection="${ownersList}" var="owner"/>
+                            </tbody>
+                        </table>
+                    </div>
+                </g:form>
+            </div>
+
+
+            <div style="display:none;">
                 <g:submitToRemote value="Update" id="updateCar"
                                   url="[controller: 'carCrud', action: 'updateCar']"
                                   update="allCars" class="btn btn-default"
@@ -123,6 +146,9 @@
                                   update="allCars" class="btn btn-default"
                                   onLoading="addRowHandlers()"
                                   onSuccess="addRowHandlers()"/>
+                <g:submitToRemote value="Search Owner" id="searchOwner"
+                                  url="[controller: 'carCrud', action: 'searchOwner']"
+                                  update="allOwners" class="btn btn-default"/>
             </div>
         </fieldset>
     </g:form>
@@ -130,7 +156,7 @@
 
 
 <!-- FORM FOR NEW OWNER-->
-<div id="frmNewOwner" title="New Owner" class="form">
+<div id="frmNewOwner" title="Owner" class="form">
     <g:form name="formEdit">
         <fieldset>
             <div class="form-group">
@@ -155,11 +181,12 @@
                                   url="[controller: 'carCrud', action: 'newCar']"
                                   update="allCars" class="btn btn-default"
                                   onLoading="addRowHandlers()"
-                                  onSuccess="addRowHandlers()"/>HACERLO CON AJAX COMO LO HACE MARCOS; COPIARLE-->
+                                  onSuccess="addRowHandlers()"/>-->
             </div>
         </fieldset>
     </g:form>
 </div>
+
 
 </body>
 </html>

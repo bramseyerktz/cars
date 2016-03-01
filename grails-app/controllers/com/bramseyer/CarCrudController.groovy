@@ -17,8 +17,10 @@ class CarCrudController {
     }
 
     def searchAjax(){
-        def response = restClient.get(path: "/", accept: ContentType.JSON, query: [make: params.make, model: params.model, year: params.year, plate: params.plate])
-        def carsList = response.json
+        def resp = restClient.get(path: "/", accept: ContentType.JSON, query: [make: params.make, model: params.model, year: params.year, plate: params.plate])
+        def carsList = resp.json
+        println(carsList.getClass())
+        println(carsList)
         render template: 'findingCars', collection: carsList, var: 'car'
     }
 
@@ -26,7 +28,7 @@ class CarCrudController {
         //println(params.idPopup + " " + params.makePopup + " " + params.modelPopup + " " + params.yearPopup)
         restClient.httpClient.sslTrustAllCerts = true
 
-        def response = restClient.post() {
+        def resp = restClient.post() {
             charset "UTF-8"
             urlenc id: params.idPopup, make: params.makePopup, model: params.modelPopup, year: params.yearPopup, plate: params.platePopup
         }
@@ -37,16 +39,24 @@ class CarCrudController {
     def deleteCar(){
         //restClient.httpClient.sslTrustAllCerts = true
 
-        def response = restClient.delete(accept: ContentType.JSON,
+        def resp = restClient.delete(accept: ContentType.JSON,
                 path: "/" + params.idPopup)
 
         searchAjax()
     }
 
     def newCar() {
-        def response = restClient.post (){
+        def resp = restClient.post (){
             charset "UTF-8"
             urlenc make: params.makePopup, model: params.modelPopup, year: params.yearPopup, plate: params.platePopup
         }
+    }
+
+    def searchOwner(){
+        def restClientOwner = new RESTClient("http://localhost:8080/cars/apiOwner")
+
+        def resp = restClientOwner.get(path: "/", accept: ContentType.JSON, query: [nombre: params.nameSearchOwner])
+        def ownersList = resp.json
+        render view: "allOwners", collection: ownersList, var: 'owner'
     }
 }

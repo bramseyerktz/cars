@@ -4,5 +4,5 @@
     <td class="success">${car?.model}</td>
     <td class="success">${car?.year}</td>
     <td class="success">${car?.plate}</td>
-    <td class="success">${car?.owner.nombre} ${car?.owner.apellido}</td>
+    <td class="success">[${car?.owner.id}] ${car?.owner.nombre} ${car?.owner.apellido}</td>
 </tr>
