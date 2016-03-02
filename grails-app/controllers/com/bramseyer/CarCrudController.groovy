@@ -19,8 +19,6 @@ class CarCrudController {
     def searchAjax(){
         def resp = restClient.get(path: "/", accept: ContentType.JSON, query: [make: params.make, model: params.model, year: params.year, plate: params.plate])
         def carsList = resp.json
-        println(carsList.getClass())
-        println(carsList)
         render template: 'findingCars', collection: carsList, var: 'car'
     }
 
@@ -46,17 +44,21 @@ class CarCrudController {
     }
 
     def newCar() {
-        def resp = restClient.post (){
-            charset "UTF-8"
-            urlenc make: params.makePopup, model: params.modelPopup, year: params.yearPopup, plate: params.platePopup
+        //def id = params.idOwnerPopup[1..2]
+        def id = params.idOwnerPopup =~ /\d+/
+        if (Owner.findById(id[0])){
+            def resp = restClient.post (){
+                charset "UTF-8"
+                urlenc make: params.makePopup, model: params.modelPopup, year: params.yearPopup, plate: params.platePopup, owner: id[0]
+            }
         }
     }
 
-    def searchOwner(){
-        def restClientOwner = new RESTClient("http://localhost:8080/cars/apiOwner")
-
-        def resp = restClientOwner.get(path: "/", accept: ContentType.JSON, query: [nombre: params.nameSearchOwner])
-        def ownersList = resp.json
-        render view: "allOwners", collection: ownersList, var: 'owner'
-    }
+//    def searchOwner(){
+//        def restClientOwner = new RESTClient("http://localhost:8080/cars/apiOwner")
+//
+//        def resp = restClientOwner.get(path: "/", accept: ContentType.JSON, query: [nombre: params.nameSearchOwner])
+//        def ownersList = resp.json
+//        render template: "findingOwners", collection: ownersList, var: 'owner'
+//    }
 }

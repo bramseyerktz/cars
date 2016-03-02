@@ -5,12 +5,11 @@
 //$(document).ready(function(){
 
     var dialogCar, dialogOwner,
-    //    form,
-        id = $("#idPopup")
+        id = $("#idPopup"),
         make = $("#makePopup"),
         model = $("#modelPopup"),
         year = $("#yearPopup"),
-        plate = $("#platePopup")
+        plate = $("#platePopup"),
         owner = $("#idOwnerPopup");
 
     dialogCar = $("#frmEditCar").dialog({
@@ -37,10 +36,7 @@
         //}
     });
 
-    //form = dialog.find("form").on("submit", function (event) {
-    //    event.preventDefault();
-    //    updateCar();
-    //});
+
 
     function addOwner(){
         $.ajax({
@@ -100,7 +96,7 @@
                             var cell = row.getElementsByTagName("td")[j];
                             id[j] = cell.innerHTML;
                         };
-                        document.getElementById("idPopup").setAttribute("value",id[0])
+                        document.getElementById("idPopup").setAttribute("value",id[0]);
                         document.getElementById("makePopup").setAttribute("value",id[1]);
                         document.getElementById("modelPopup").setAttribute("value",id[2]);
                         document.getElementById("yearPopup").setAttribute("value",id[3]);
@@ -122,7 +118,29 @@
                 };
 
             currentRow.onclick = createClickHandler(currentRow);
-        }}
+        }
+    }
+
+    function addRowOwnersHandlers() {
+        var table = document.getElementById("tableOwners");
+        var rows = table.getElementsByTagName("tr");
+        for (i = 0; i < rows.length; i++) {
+            var currentRow = table.rows[i];
+            var createClickOwnerHandler =
+                function (row) {
+                    return function () {
+                        var cell = row.getElementsByTagName("td")[0];
+                        var id = cell.innerHTML;
+                        document.getElementById("idOwnerPopup").setAttribute("value", id);
+                        $("#btnOpenFormOwner").click();
+                    }
+                };
+
+            currentRow.onclick = createClickOwnerHandler(currentRow);
+        }
+    }
+
+
 
     //window.onload = addRowHandlers();
 
@@ -133,6 +151,15 @@
         document.getElementById("yearPopup").setAttribute("value","");
         document.getElementById("platePopup").setAttribute("value","");
         document.getElementById("idOwnerPopup").setAttribute("value","");
+
+        dialogCar.dialog("option", "buttons", [
+            {text: "Save",
+             click: saveCar
+            },
+            {text: "Cancel",
+             click: cancel
+            }
+        ]);
         dialogCar.dialog("open");
     });
 
@@ -155,20 +182,17 @@
     $("#btnOpenFormOwner").click(function(){
         var divSearch;
         divSearch = document.getElementById("divSearchOwner");
-        //if (divSearch.style.visibility == "hidden"){
-        //    divSearch.style.visibility = "visible";
-        //} else {
-        //    divSearch.style.visibility = "hidden";
-        //}
         if (divSearch.style.display == "none"){
             divSearch.style.display = "block";
         } else {
             divSearch.style.display = "none";
+            document.getElementById("nameSearchOwner").setAttribute("value", "");
+            $("#allOwners").empty();
         }
     });
 
     $("#btnSearchOwner").click(function(){
-        $("#searchOwner").click();
+        updateTableContent("#allOwners");
     });
 
 
@@ -176,7 +200,7 @@
     function saveCar(){
         if (checkParamsCar()) {
             $("#newCar").click();
-            cancel();
+            dialogCar.dialog("close");//cancel();
             return false;
         }
     }
@@ -211,7 +235,32 @@
             return false;
         }
 
+        if (owner.val() == ""){
+            alert('Falta ingresar el Owner para este Car');
+            return false;
+        }
         return true;
     }
+
+
+function updateTableContent(tableBodyId){
+    $(tableBodyId).empty();
+    var queryString = "/cars/apiOwner/" +
+        "?nombre=" + $("#nameSearchOwner").val();
+
+    $.getJSON(queryString, function(data){
+        var tableBody = $(tableBodyId)
+        for (var i = 0, len = data.length; i < len; i++) {
+            //alert(tableElement);
+            var item=data[i];
+            tableBody.append($('<tr>')
+                    .attr('attr-id',item.id)
+                    .append($('<td>').text("[" + item.id + "]" + " " + item.nombre + " " + item.apellido))
+            );
+        }
+        //After AJAX request
+        addRowOwnersHandlers();
+    });
+}
 
 //});

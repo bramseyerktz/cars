@@ -1,3 +1,3 @@
 <tr>
-    <td class="success">[${owner.id}] ${owner.nombre} ${owner.apellido}</td>
+    <td class="success">[${owner?.id}] ${owner?.nombre} ${owner?.apellido}</td>
 </tr>

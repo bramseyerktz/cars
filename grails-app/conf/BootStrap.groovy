@@ -37,17 +37,6 @@ class BootStrap {
                 ]
             }
         }
-
-//        JSON.createNamedConfig("owner") { cfg ->
-//            cfg.registerObjectMarshaller(Owner) {
-//                def returnArray = [:]
-//                returnArray['id'] = it.id
-//                returnArray['nombre'] = it.nombre
-//                returnArray['apellido'] = it.apellido
-//                returnArray['dni'] = it.dni
-//                return returnArray
-//            }
-//        }
     }
     def destroy = {
     }

@@ -122,7 +122,6 @@
                         <input type="button" value="Search" id="btnSearchOwner" class="btn btn-default">
                         <table class="table" id="tableOwners">
                             <tbody id="allOwners">
-                               <g:render template="findingOwners" collection="${ownersList}" var="owner"/>
                             </tbody>
                         </table>
                     </div>
@@ -146,9 +145,6 @@
                                   update="allCars" class="btn btn-default"
                                   onLoading="addRowHandlers()"
                                   onSuccess="addRowHandlers()"/>
-                <g:submitToRemote value="Search Owner" id="searchOwner"
-                                  url="[controller: 'carCrud', action: 'searchOwner']"
-                                  update="allOwners" class="btn btn-default"/>
             </div>
         </fieldset>
     </g:form>
