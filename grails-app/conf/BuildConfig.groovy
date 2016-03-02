@@ -91,5 +91,6 @@ grails.project.dependency.resolution = {
 
         // Grails plugin for MySQL
         compile "org.grails.plugins:mysql-connectorj:5.1.22.1"
+
     }
 }

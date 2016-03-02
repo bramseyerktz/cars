@@ -2,7 +2,7 @@
  * Created by bramseyer on 25/02/16.
  */
 
-//$(document).ready(function(){
+$(document).ready(function(){
 
     var dialogCar, dialogOwner,
         id = $("#idPopup"),
@@ -184,7 +184,7 @@
         var divSearch;
         divSearch = document.getElementById("divSearchOwner");
         if (divSearch.style.display == "none"){
-            divSearch.style.display = "block";
+            divSearch.style.display = "block";//divSearch.show(); o divSearch.hide();
         } else {
             divSearch.style.display = "none";
             document.getElementById("nameSearchOwner").value = "";
@@ -207,40 +207,50 @@
     }
 
     function checkParamsCar(){
+        var result = true;
+
         if (year.val() == ""
             || isNaN(year.val())
             || year.val().length > 4
             || /^\s+$/.test(year.val())) {
-            alert('[ERROR] El campo Year debe ser un año válido');
-            return false;
+            alert('El campo Year debe ser un año válido', 'Error al guardar Car');
+            result = false;
         }
 
         if (make.val() == ""
             || make.val().length > 50
             || /^\s+$/.test(make.val())) {
             alert('[ERROR] El campo Make debe estar completo');
-            return false;
+            result = false;
         }
 
         if (model.val() == ""
             || model.val().length > 50
             || /^\s+$/.test(model.val())) {
             alert('[ERROR] El campo Model debe estar completo');
-            return false;
+            result = false;
         }
 
         if (plate.val() == ""
             || plate.val().length > 6
             || !(/[A-Z]{3}[0-9]{3}/.test(plate.val()))) {
             alert('[ERROR] El campo Plate debe estar completo, formato: XXX999');
-            return false;
+            result = false;
         }
 
         if (owner.val() == ""){
             alert('Falta ingresar el Owner para este Car');
-            return false;
+            result = false;
         }
-        return true;
+        var divSearch;
+        divSearch = document.getElementById("divError");
+        if (divSearch.style.display == "none" && !result){
+            divSearch.style.display = "block";
+        } else {
+            divSearch.style.display = "none";
+        }
+
+        return result;
     }
 
 
@@ -264,4 +274,4 @@ function updateTableContent(tableBodyId){
     });
 }
 
-//});
+});

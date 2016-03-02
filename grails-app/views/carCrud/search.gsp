@@ -15,7 +15,7 @@
 
 <body>
 <div class="form-inline">
-    <form>
+    <form id="formSearchCars">
         <div class="col-md-offset-1 col-md-10">
             <h1>Search</h1><br>
                 <div class="form-group">
@@ -83,7 +83,12 @@
 </div>
 
 <!-- FORM FOR EDIT CAR-->
-<div id="frmEditCar" title="Car" class="form">
+<div id="frmEditCar" title="Car" class="form" >
+    <div class="alert alert-danger" role="alert" style="display:none;" id="divError">
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error:</span>
+        Enter valid params!
+    </div>
     <g:form name="formEdit">
         <fieldset>
             <div class="form-group">

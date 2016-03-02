@@ -53,12 +53,4 @@ class CarCrudController {
             }
         }
     }
-
-//    def searchOwner(){
-//        def restClientOwner = new RESTClient("http://localhost:8080/cars/apiOwner")
-//
-//        def resp = restClientOwner.get(path: "/", accept: ContentType.JSON, query: [nombre: params.nameSearchOwner])
-//        def ownersList = resp.json
-//        render template: "findingOwners", collection: ownersList, var: 'owner'
-//    }
 }
