@@ -96,12 +96,12 @@
                             var cell = row.getElementsByTagName("td")[j];
                             id[j] = cell.innerHTML;
                         };
-                        document.getElementById("idPopup").setAttribute("value",id[0]);
-                        document.getElementById("makePopup").setAttribute("value",id[1]);
-                        document.getElementById("modelPopup").setAttribute("value",id[2]);
-                        document.getElementById("yearPopup").setAttribute("value",id[3]);
-                        document.getElementById("platePopup").setAttribute("value",id[4]);
-                        document.getElementById("idOwnerPopup").setAttribute("value",id[5]);
+                        document.getElementById("idPopup").value = id[0];
+                        document.getElementById("makePopup").value = id[1];
+                        document.getElementById("modelPopup").value = id[2];
+                        document.getElementById("yearPopup").value = id[3];
+                        document.getElementById("platePopup").value = id[4];
+                        document.getElementById("idOwnerPopup").value = id[5];
                         dialogCar.dialog("option", "buttons", [
                             {text: "Update",
                                 click: updateCar
@@ -131,7 +131,7 @@
                     return function () {
                         var cell = row.getElementsByTagName("td")[0];
                         var id = cell.innerHTML;
-                        document.getElementById("idOwnerPopup").setAttribute("value", id);
+                        document.getElementById("idOwnerPopup").value = id;
                         $("#btnOpenFormOwner").click();
                     }
                 };
@@ -145,12 +145,13 @@
     //window.onload = addRowHandlers();
 
     $("#new").click(function(){
-        document.getElementById("idPopup").setAttribute("value","");
-        document.getElementById("makePopup").setAttribute("value","");
-        document.getElementById("modelPopup").setAttribute("value","");
-        document.getElementById("yearPopup").setAttribute("value","");
-        document.getElementById("platePopup").setAttribute("value","");
-        document.getElementById("idOwnerPopup").setAttribute("value","");
+        document.getElementById("idPopup").value = "";
+        document.getElementById("makePopup").value = "";
+        document.getElementById("makePopup").value = "";
+        document.getElementById("modelPopup").value = "";
+        document.getElementById("yearPopup").value = "";
+        document.getElementById("platePopup").value = "";
+        document.getElementById("idOwnerPopup").value = "";
 
         dialogCar.dialog("option", "buttons", [
             {text: "Save",
@@ -164,10 +165,10 @@
     });
 
     $("#newOwner").click(function(){
-        document.getElementById("namePopup").setAttribute("value","");
-        document.getElementById("lastNamePopup").setAttribute("value","");
-        document.getElementById("dniPopup").setAttribute("value","");
-        document.getElementById("nationalityPopup").setAttribute("value","");
+        document.getElementById("namePopup").value = "";
+        document.getElementById("lastNamePopup").value = "";
+        document.getElementById("dniPopup").value = "";
+        document.getElementById("nationalityPopup").value = "";
         dialogOwner.dialog("option", "buttons", [{
             text: "Save Owner",
             click: addOwner
@@ -186,7 +187,7 @@
             divSearch.style.display = "block";
         } else {
             divSearch.style.display = "none";
-            document.getElementById("nameSearchOwner").setAttribute("value", "");
+            document.getElementById("nameSearchOwner").value = "";
             $("#allOwners").empty();
         }
     });
@@ -200,7 +201,7 @@
     function saveCar(){
         if (checkParamsCar()) {
             $("#newCar").click();
-            dialogCar.dialog("close");//cancel();
+            dialogCar.dialog("close");//cancel(); no anda el cancel vaya a saber porque
             return false;
         }
     }
