@@ -12,16 +12,12 @@ class Car {
 
     static mapping = {
         table('VehicleModelYear')
-        year column: 'year'
-        make column: 'make'
-        model column: 'model'
     }
 
     static constraints = {
         year(blank:false, max: 3000)
         make(blank:false, maxSize: 50)
         model(blank:false, maxSize: 50)
-        plate(blank: false, maxSize: 6, matches: '[A-Z]{3}[0-9]{3}')
-        //plate(nullable: true)
+        plate(blank: false, maxSize: 6, matches: /^[A-Z]{3}[0-9]{3}$/)
     }
 }

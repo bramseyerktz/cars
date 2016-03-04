@@ -14,4 +14,10 @@ class Owner {
         apellido(blank: false, maxSize: 25)
         nacionalidad(blank: false, maxSize: 20)
     }
+
+    static mapping = {
+        nombre column: 'name'
+        apellido column: 'last_name'
+        nacionalidad column: 'nationality'
+    }
 }

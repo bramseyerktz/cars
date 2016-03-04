@@ -82,44 +82,7 @@ $(document).ready(function(){
 
 
 
-    function addRowHandlers() {
-        var table = document.getElementById("tableCars");
-        var rows = table.getElementsByTagName("tr");
-        for (i = 0; i < rows.length; i++) {
-            var currentRow = table.rows[i];
-            var createClickHandler =
-                function(row)
-                {
-                    return function() {
-                        var id = [];
-                        for (j=0; j < 6; j++) {
-                            var cell = row.getElementsByTagName("td")[j];
-                            id[j] = cell.innerHTML;
-                        };
-                        document.getElementById("idPopup").value = id[0];
-                        document.getElementById("makePopup").value = id[1];
-                        document.getElementById("modelPopup").value = id[2];
-                        document.getElementById("yearPopup").value = id[3];
-                        document.getElementById("platePopup").value = id[4];
-                        document.getElementById("idOwnerPopup").value = id[5];
-                        dialogCar.dialog("option", "buttons", [
-                            {text: "Update",
-                                click: updateCar
-                            },
-                            {text: "Delete",
-                                click: deleteCar
-                            },
-                            {text: "Cancel",
-                                click: cancel
-                            }
-                        ]);
-                        dialogCar.dialog("open");
-                    };
-                };
-
-            currentRow.onclick = createClickHandler(currentRow);
-        }
-    }
+    addRowHandlers()
 
     function addRowOwnersHandlers() {
         var table = document.getElementById("tableOwners");
@@ -275,3 +238,42 @@ function updateTableContent(tableBodyId){
 }
 
 });
+
+function addRowHandlers() {
+    var table = document.getElementById("tableCars");
+    var rows = table.getElementsByTagName("tr");
+    for (i = 0; i < rows.length; i++) {
+        var currentRow = table.rows[i];
+        var createClickHandler =
+            function(row)
+            {
+                return function() {
+                    var id = [];
+                    for (j=0; j < 6; j++) {
+                        var cell = row.getElementsByTagName("td")[j];
+                        id[j] = cell.innerHTML;
+                    };
+                    document.getElementById("idPopup").value = id[0];
+                    document.getElementById("makePopup").value = id[1];
+                    document.getElementById("modelPopup").value = id[2];
+                    document.getElementById("yearPopup").value = id[3];
+                    document.getElementById("platePopup").value = id[4];
+                    document.getElementById("idOwnerPopup").value = id[5];
+                    dialogCar.dialog("option", "buttons", [
+                        {text: "Update",
+                            click: updateCar
+                        },
+                        {text: "Delete",
+                            click: deleteCar
+                        },
+                        {text: "Cancel",
+                            click: cancel
+                        }
+                    ]);
+                    dialogCar.dialog("open");
+                };
+            };
+
+        currentRow.onclick = createClickHandler(currentRow);
+    }
+}
