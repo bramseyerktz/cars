@@ -10,7 +10,8 @@
 <head>
     <title>Find a car</title>
     <meta name="layout" content="main"/>
-    <g:javascript library="search"/>
+    <r:require module="search"/>
+    <%--<g:javascript src="search.js"/>--%>
 </head>
 
 <body>
@@ -20,7 +21,7 @@
             <h1>Search</h1><br>
                 <div class="form-group">
                     <label for="year">Year</label>
-                    <input id="year" type="number" min="0" max="9999" name="year" class="form-control" placeholder="Year" value="${params?.year}"/>
+                    <input id="year" type="number" min="1750" max="${java.util.Calendar.getInstance().get(Calendar.YEAR)}" name="year" class="form-control" placeholder="Year" value="${params?.year}"/>
                 </div>
                 <div class="form-group">
                     <label for="make">Make by...</label>
@@ -32,7 +33,7 @@
                 </div><br><br>
                 <div class="form-group">
                     <label for="plate">Plate</label>
-                    <input type="text" id="plate" maxlength="6" name="plate" class="form-control" placeholder="Plate" value="${params?.plate}"/>
+                    <input type="text" id="plate" patern="^[A-Z]{3}[0-9]{3}$" name="plate" class="form-control" placeholder="Plate" value="${params?.plate}"/>
                 </div>
                 <div class="form-group">
                     <g:submitToRemote value="Search"
@@ -58,27 +59,8 @@
 
 
 <div class="row">
-    <div class="col-md-offset-1 col-md-10">
-        <table class="table" id="tableCars">
-            <tr>
-                <th>Id</th>
-                <th>Make</th>
-                <th>Model</th>
-                <th>Year</th>
-                <th>Plate</th>
-                <th>Owner</th>
-            </tr>
-            <!--<g:each in="${carsList}" var="car">
-                <tr>
-                    <td class="success">${car.make}</td>
-                        <td class="success">${car.model}</td>
-                        <td class="success">${car.year}</td>
-                    </tr>
-            </g:each>-->
-            <tbody id="allCars">
-            <g:render template="findingCars" collection="${carsList}" var="car"/>
-            </tbody>
-        </table>
+    <div class="col-md-offset-1 col-md-10" id="allCars">
+        <g:render template="tableCars" model="${model}"/>
     </div>
 </div>
 

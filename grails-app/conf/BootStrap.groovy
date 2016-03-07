@@ -7,7 +7,7 @@ class BootStrap {
 
         JSON.createNamedConfig("ownerByCar") { cfg ->
             cfg.registerObjectMarshaller(Car) { Car car ->
-                return [ class: Car.name,
+                return [ //class: Car.name,
                          id: car.id,
                          make: car.make,
                          model: car.model,
