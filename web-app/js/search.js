@@ -2,7 +2,7 @@
  * Created by bramseyer on 25/02/16.
  */
 
-$(document).ready(function(){
+//$(document).ready(function(){
 
 var dialogCar, dialogOwner,
     id = $("#idPopup"),
@@ -273,4 +273,4 @@ function updateTableContent(tableBodyId){
     });
 }
 
-});
+//});
