@@ -22,6 +22,5 @@ class Car {
         make(blank:false, maxSize: 50)
         model(blank:false, maxSize: 50)
         plate(blank: false, maxSize: 6, matches: '[A-Z]{3}[0-9]{3}')
-        //plate(nullable: true)
     }
 }

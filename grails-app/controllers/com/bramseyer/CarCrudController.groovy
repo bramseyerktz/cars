@@ -9,24 +9,31 @@ class CarCrudController {
     def carService
     def restClient = new RESTClient("http://localhost:8080/cars/api")
 
-    def index() { }
+    def index() {
+        redirect(controller: 'CarCrud', action: 'search')
+    }
 
     //searcher for cars
-    def search(){
-        //[carsList: carService.searchCar(params)]
+    def search() {
+        def model = [carsList: [] as List, carsTotal: 0, filters: [] as List]
+        return [model: model]
     }
 
     def searchAjax(){
-        def resp = restClient.get(path: "/", accept: ContentType.JSON, query: [make: params.make, model: params.model, year: params.year, plate: params.plate])
-        def carsList = resp.json
-        render template: 'findingCars', collection: carsList, var: 'car'
+        if (!params.max)
+            params.max = 20
+
+        def query = params.findAll {it.value && it.value != 'null'}
+        def resp = restClient.get(path: "/", accept: ContentType.JSON, query: query).json
+
+        render template: 'tableCars', model: resp
     }
 
     def updateCar(){
-        //println(params.idPopup + " " + params.makePopup + " " + params.modelPopup + " " + params.yearPopup)
         restClient.httpClient.sslTrustAllCerts = true
 
-        def resp = restClient.post() {
+        def resp = restClient.post(accept: ContentType.JSON) {
+            type: ContentType.JSON
             charset "UTF-8"
             urlenc id: params.idPopup, make: params.makePopup, model: params.modelPopup, year: params.yearPopup, plate: params.platePopup
         }

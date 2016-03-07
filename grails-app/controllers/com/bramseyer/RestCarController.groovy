@@ -5,7 +5,7 @@ import grails.converters.JSON
 
 class RestCarController {
 
-    static responseFormats = ["xml", "json"]
+    static responseFormats = ["json","xml"]
 
     def carService
 
