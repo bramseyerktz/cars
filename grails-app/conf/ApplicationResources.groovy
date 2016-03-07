@@ -4,6 +4,7 @@ modules = {
     }
 
     search {
-        resource url:'js/search.js'
+        resource url:'js/search.js', disposition: head
+        resource url:'js/pagination.js', disposition: head
     }
 }
