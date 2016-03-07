@@ -18,7 +18,9 @@ function setupGridAjax() {
             type: 'GET',
             url: url,
             success: function(data) {
-                jQuery("#allCars").html(data)
+                jQuery("#allCars").html(data);
+                //Add dialog support
+                addRowHandlers()
             }
         })
     });

@@ -31,11 +31,11 @@ class CarCrudController {
 
     def updateCar(){
         restClient.httpClient.sslTrustAllCerts = true
-
+        def id = params.idOwnerPopup =~ /\d+/
         def resp = restClient.post(accept: ContentType.JSON) {
             type: ContentType.JSON
             charset "UTF-8"
-            urlenc id: params.idPopup, make: params.makePopup, model: params.modelPopup, year: params.yearPopup, plate: params.platePopup
+            urlenc id: params.idPopup, make: params.makePopup, model: params.modelPopup, year: params.yearPopup, plate: params.platePopup, owner: id[0]
         }
 
         searchAjax()
@@ -51,7 +51,6 @@ class CarCrudController {
     }
 
     def newCar() {
-        //def id = params.idOwnerPopup[1..2]
         def id = params.idOwnerPopup =~ /\d+/
         if (Owner.findById(id[0])){
             def resp = restClient.post (){
