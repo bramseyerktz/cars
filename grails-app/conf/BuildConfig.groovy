@@ -7,6 +7,8 @@ grails.project.target.level = 1.6
 grails.project.source.level = 1.6
 //grails.project.war.file = "target/${appName}-${appVersion}.war"
 
+grails.project.fork.test = false
+
 grails.project.fork = [
     // configure settings for compilation JVM, note that if you alter the Groovy version forked compilation is required
     //  compile: [maxMemory: 256, minMemory: 64, debug: false, maxPerm: 256, daemon:true],
@@ -45,6 +47,9 @@ grails.project.dependency.resolution = {
         //mavenRepo "http://download.java.net/maven/2/"
         //mavenRepo "http://repository.jboss.com/maven2/"
     }
+    //for functional testing
+    def gebVersion = "0.9.2"
+    def seleniumVersion = "2.41.0"
 
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes e.g.
@@ -57,6 +62,12 @@ grails.project.dependency.resolution = {
         //Add wslite for REST services
         compile "com.github.groovy-wslite:groovy-wslite:0.7.2"
 
+
+        //Adds Geb/Spock integration
+        test "org.gebish:geb-spock:$gebVersion"
+        //Uses chrome for functional tests
+        test "org.seleniumhq.selenium:selenium-support:$seleniumVersion"
+        test "org.seleniumhq.selenium:selenium-chrome-driver:$seleniumVersion"
     }
 
     plugins {
@@ -91,6 +102,10 @@ grails.project.dependency.resolution = {
 
         // Grails plugin for MySQL
         compile "org.grails.plugins:mysql-connectorj:5.1.22.1"
+
+        //add for functional test
+        test ":geb:$gebVersion" //Adds Gebs Grails Plugin
+        //test ':dumbster:0.2' //Allows to mock a smpt server
 
     }
 }
