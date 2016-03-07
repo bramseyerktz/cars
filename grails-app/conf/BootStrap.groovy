@@ -13,7 +13,14 @@ class BootStrap {
                          model: car.model,
                          year: car.year,
                          plate: car.plate,
-                         owner:car.owner
+                         owner:[
+                                 class: Owner.name,
+                                 id: car.owner.id,
+                                 nombre: car.owner.nombre,
+                                 apellido: car.owner.apellido,
+                                 dni: car.owner.dni,
+                                 nacionalidad: car.owner.nacionalidad
+                         ]
                 ]
             }
         }
