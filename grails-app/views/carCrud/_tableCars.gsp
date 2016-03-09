@@ -1,4 +1,4 @@
-<g:javascript src="pagination.js"/>
+<g:javascript src="app/pagination.js"/>
 <table class="table ajax" id="tableCars">
     <tr>
         <g:sortableColumn title="Id" property="id" action="searchAjax" params="${filters}"/>

@@ -17,25 +17,26 @@ dialogCar = $("#frmEditCar").dialog({
     height: 430,
     width: 300,
     modal: true,
-    //close: function () {
-    //    form[0].reset();
-    //}
 });
 
-dialogOwner = $("#frmNewOwner").dialog({
-    autoOpen: false,
-    height: 430,
-    width: 300,
-    modal: true,
-    buttons: {
-        "Save Owner": addOwner,
-        Cancel: cancel
-    }
-    //close: function () {
-    //    form[0].reset();
-    //}
-});
+//dialogOwner = $("#frmNewOwner").dialog({
+//    autoOpen: false,
+//    height: 430,
+//    width: 300,
+//    modal: true,
+//    buttons: {
+//        "Save Owner": addOwner,
+//        Cancel: cancel
+//    }
+//});
 
+var $dialogOwner = $("#frmNewOwner");
+var defaultOptions = {
+        "width": "300px",
+        "height": "430px",
+        "cache": false,
+        "fx": false
+};
 
 
 function addOwner(){
@@ -52,7 +53,8 @@ function addOwner(){
 
         success: function(){
             alert('Owner ingresado correctamente');
-            dialogOwner.dialog("close");
+            closeModalOwner;
+            //dialogOwner.dialog("close");
         },
 
         error: function(){
@@ -64,6 +66,10 @@ function addOwner(){
 
 function cancel(){
     $(this).dialog("close");
+}
+
+function closeModalOwner(){
+    $dialogOwner.modal().hide();
 }
 
 function deleteCar(){
@@ -163,21 +169,43 @@ $("#new").click(function(){
     dialogCar.dialog("open");
 });
 
-$("#newOwner").click(function(){
-    document.getElementById("namePopup").value = "";
-    document.getElementById("lastNamePopup").value = "";
-    document.getElementById("dniPopup").value = "";
-    document.getElementById("nationalityPopup").value = "";
-    dialogOwner.dialog("option", "buttons", [{
-        text: "Save Owner",
-        click: addOwner
-    },
-        {   text: "Cancel",
-            click: cancel
-        }
-    ]);
-    dialogOwner.dialog("open");
+//$("#newOwner").click(function(){
+//    document.getElementById("namePopup").value = "";
+//    document.getElementById("lastNamePopup").value = "";
+//    document.getElementById("dniPopup").value = "";
+//    document.getElementById("nationalityPopup").value = "";
+//    dialogOwner.dialog("option", "buttons", [{
+//        text: "Save Owner",
+//        click: addOwner
+//    },
+//        {   text: "Cancel",
+//            click: cancel
+//        }
+//    ]);
+//    dialogOwner.dialog("open");
+//});
+var $newOwnerButton = $("#newOwner");
+
+$("#newOwner").click(function(e) {
+    var modal = $dialogOwner
+        .modal(defaultOptions)
+        .content(templates.build(templates.temp.TEMPLATE_OWNER, {
+            "::primary_button": "Save",
+            "::secondary_button": "Cancel"
+        }))
+        .show();
+
+    //e.preventDefault();
+    $(".ch-modal").css("top", "100px");
+    setTimeout(function () {
+        $("#modal-primary-action").unbind("click").bind("click", addOwner);
+        $("#modal-secondary-action").unbind("click").bind("click", closeModalOwner);
+        //$("i.ch-close").unbind("click").bind("click", app.closeDialog);
+    }, 200);
+    e.stopPropagation();
 });
+
+
 
 $("#btnOpenFormOwner").click(function(){
     var divSearch;
@@ -272,5 +300,17 @@ function updateTableContent(tableBodyId){
         addRowOwnersHandlers();
     });
 }
+    //var $elModal = $('#bubbleAlert'); EJEMPLO DE .MODAL CHICO UI
+    //
+    //var defaultOptions = {
+    //    "width": "500px",
+    //    "cache": false,
+    //    "fx": false
+    //};
+    //
+    //var modal = $elModal
+    //    .modal(defaultOptions)
+    //    .content('Hola')
+    //    .show();
 
 //});

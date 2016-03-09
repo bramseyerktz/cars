@@ -11,7 +11,6 @@
     <title>Find a car</title>
     <meta name="layout" content="main"/>
     <r:require module="search"/>
-    <%--<g:javascript src="search.js"/>--%>
 </head>
 
 <body>
@@ -19,36 +18,39 @@
     <form id="formSearchCars">
         <div class="col-md-offset-1 col-md-10">
             <h1>Search</h1><br>
-                <div class="form-group">
-                    <label for="year">Year</label>
-                    <input id="year" type="number" min="1750" max="${java.util.Calendar.getInstance().get(Calendar.YEAR)}" name="year" class="form-control" placeholder="Year" value="${params?.year}"/>
-                </div>
-                <div class="form-group">
-                    <label for="make">Make by...</label>
-                    <input type="text" id="make" maxlength="50" name="make" class="form-control" placeholder="Make" value="${params?.make}"/>
-                </div>
-                <div class="form-group">
-                    <label for="model">Model</label>
-                    <input type="text" id="model" maxlength="50" name="model" class="form-control" placeholder="Model" value="${params?.model}"/>
-                </div><br><br>
-                <div class="form-group">
-                    <label for="plate">Plate</label>
-                    <input type="text" id="plate" patern="^[A-Z]{3}[0-9]{3}$" name="plate" class="form-control" placeholder="Plate" value="${params?.plate}"/>
-                </div>
-                <div class="form-group">
-                    <g:submitToRemote value="Search"
-                                      url="[controller: 'carCrud', action: 'searchAjax']"
-                                      update="allCars" class="btn btn-default"
-                                      onLoading="addRowHandlers()"
-                                      onSuccess="addRowHandlers()"/>
-                    <div id="new" class="btn btn-default">
-                        New Car
+                <div id="bubbleAlert"></div>
+                <div class="ch-box-lite">
+                    <div class="form-group">
+                        <label for="year">Year</label>
+                        <input id="year" type="number" min="1750" max="${java.util.Calendar.getInstance().get(Calendar.YEAR)}" name="year" class="form-control" placeholder="Year" value="${params?.year}"/>
                     </div>
-                    <div id="newOwner" class="btn btn-default">
-                        New Owner
+                    <div class="form-group">
+                        <label for="make">Make by...</label>
+                        <input type="text" id="make" maxlength="50" name="make" class="form-control" placeholder="Make" value="${params?.make}"/>
                     </div>
-                    <!--<button name="new" id="new" class="btn btn-default">New</button>-->
-                </div><br><br>
+                    <div class="form-group">
+                        <label for="model">Model</label>
+                        <input type="text" id="model" maxlength="50" name="model" class="form-control" placeholder="Model" value="${params?.model}"/>
+                    </div><br><br>
+                    <div class="form-group">
+                        <label for="plate">Plate</label>
+                        <input type="text" id="plate" patern="^[A-Z]{3}[0-9]{3}$" name="plate" class="form-control" placeholder="Plate" value="${params?.plate}"/>
+                    </div>
+                    <div class="form-group">
+                        <g:submitToRemote value="Search"
+                                          url="[controller: 'carCrud', action: 'searchAjax']"
+                                          update="allCars" class="btn btn-default"
+                                          onLoading="addRowHandlers()"
+                                          onSuccess="addRowHandlers()"/>
+                        <div id="new" class="btn btn-default">
+                            New Car
+                        </div>
+                        <div id="newOwner" class="btn btn-default">
+                            New Owner
+                        </div>
+                        <!--<button name="new" id="new" class="btn btn-default">New</button>-->
+                    </div><br><br>
+                </div>
         </div>
     </form>
 </div>
@@ -139,37 +141,10 @@
 
 
 <!-- FORM FOR NEW OWNER-->
-<div id="frmNewOwner" title="Owner" class="form">
-    <g:form name="formEdit">
-        <fieldset>
-            <div class="form-group">
-                <label for="dniPopup">DNI</label>
-                <input type="number" name="dniPopup" maxlength="8" class="form-control" id="dniPopup" placeholder="DNI">
-            </div>
-            <div class="form-group">
-                <label for="namePopup">Name</label>
-                <input type="text" maxlength="25" class="form-control" name="namePopup" id="namePopup" placeholder="Name">
-            </div>
-            <div class="form-group">
-                <label for="lastNamePopup">Last Name</label>
-                <input type="text" maxlength="25" class="form-control" name="lastNamePopup" id="lastNamePopup" placeholder="Last Name">
-            </div>
-            <div class="form-group">
-                <label for="nationalityPopup">Nationality</label>
-                <input type="text" maxlength="20" class="form-control" name="nationalityPopup" id="nationalityPopup" placeholder="Nationality">
-            </div>
-            <!-- New owner properties -->
-            <div style="display:none">
-                <!--<g:submitToRemote value="New" id="newOwner"
-                                  url="[controller: 'carCrud', action: 'newCar']"
-                                  update="allCars" class="btn btn-default"
-                                  onLoading="addRowHandlers()"
-                                  onSuccess="addRowHandlers()"/>-->
-            </div>
-        </fieldset>
-    </g:form>
+<div id="frmNewOwner" style="display: none;">
+
 </div>
 
-
+<script src="js/lib/chico.js"></script>
 </body>
 </html>
