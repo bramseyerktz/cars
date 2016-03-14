@@ -103,7 +103,7 @@
             <!-- Edit car properties -->
 
             <!-- div for search owners -->
-            <div id="divSearchOwner" style="display:none;"> <!--style="visibility: hidden;">-->
+            <div id="divSearchOwner" style="display:none;">
                 <g:form name="formSearchOwner">
                     <div class="form-group">
                         <label for="nameSearchOwner">Name</label>
@@ -140,7 +140,7 @@
 </div>
 
 
-<!-- FORM FOR NEW OWNER-->
+<!-- FORM FOR NEW OWNER CHICO UI-->
 <div id="frmNewOwner" style="display: none;">
 
 </div>

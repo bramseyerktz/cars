@@ -12,9 +12,6 @@ class CarService {
 
     def Car addCar(Car car) {
         if (car.hasErrors()) {
-            println(car.errors)
-            println(car)
-            println("ACA ESTA LOS ERROREEEEEEEEES")
             throw new CarException(
                     message: "Invalid or empty car", car: car)
         }
