@@ -84,15 +84,8 @@
 //window.onload = addRowHandlers();
 
     $("#btnOpenFormOwner").click(function (e) {
-        //var divSearch = document.getElementById("divSearchOwner");
-        //if (divSearchOwner.style.display == "none") {
-        if ($("#divSearchOwner").css('display') != 'none') {//.is(":visible")) {
-            closeAndCleanSearchOwnerDiv();
-        } else {
-            $("#divSearchOwner").show();
-            //document.getElementById("divSearchOwner").style.display = "block";
-            e.stopImmediatePropagation();
-        }
+        $("#divSearchOwner").toggle();
+        e.stopImmediatePropagation();
     });
 
     $("#btnSearchOwner").click(function () {
