@@ -48,7 +48,6 @@
                         <div id="newOwner" class="btn btn-default">
                             New Owner
                         </div>
-                        <!--<button name="new" id="new" class="btn btn-default">New</button>-->
                     </div><br><br>
                 </div>
         </div>
@@ -103,7 +102,7 @@
             <!-- Edit car properties -->
 
             <!-- div for search owners -->
-            <div id="divSearchOwner" style="display:none;">
+            <div id="divSearchOwner">
                 <g:form name="formSearchOwner">
                     <div class="form-group">
                         <label for="nameSearchOwner">Name</label>

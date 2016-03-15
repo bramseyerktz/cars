@@ -20,8 +20,8 @@ class CarCrudController {
     }
 
     def searchAjax(){
-        if (!params.max)
-            params.max = 20
+        if (!params.max || params.max.toInteger() >= 100)
+            params.max = 10
 
         def query = params.findAll {it.value && it.value != 'null'}
         def resp = restClient.get(path: "/", accept: ContentType.JSON, query: query).json

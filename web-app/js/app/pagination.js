@@ -17,6 +17,7 @@ function setupGridAjax() {
         jQuery.ajax({
             type: 'GET',
             url: url,
+            dataType: 'html',
             success: function(data) {
                 jQuery("#allCars").html(data);
                 //Add dialog support

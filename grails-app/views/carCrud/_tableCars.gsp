@@ -12,6 +12,9 @@
         <g:render template="findingCars" collection="${cars}" var="car"/>
     </tbody>
 </table>
-<div class="pagination">
-    <g:paginate total="${carsTotal}" action="searchAjax" update="allCars" params="${filters}"/>
+
+<div class="col-md-offset-2 col-md-9">
+    <div class="pagination" id="pagination" style="display: none;">
+        <g:paginate total="${carsTotal}" action="searchAjax" update="allCars" params="${filters}" omitNext="true" omitPrev="true"/>
+    </div>
 </div>
